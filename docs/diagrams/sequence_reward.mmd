@@ -1,0 +1,24 @@
+sequenceDiagram
+  actor C as Citizen
+  participant API as Express API
+  participant DB as SQLite
+  actor A as Administrator
+  participant MM as MetaMask
+  participant SC as EcoChainRewards (Sepolia)
+  C->>API: POST /citizen/submissions (+ photo)
+  API->>DB: save submission (PENDING)
+  A->>API: POST /admin/submissions/:id/approve
+  API->>DB: status APPROVED + Verification row
+  A->>API: GET /reward-params
+  A->>SC: isRewarded(id)? hasRole(admin)? (read)
+  A->>MM: rewardRecycling(citizen, id, category, grams)
+  MM->>SC: signed transaction
+  SC-->>SC: revert if already rewarded or not authorised
+  SC-->>MM: tx hash
+  A->>API: POST /admin/rewards (tx hash)
+  API->>DB: Reward PROCESSING (submissionId UNIQUE)
+  API->>SC: getTransactionReceipt (read-only RPC)
+  SC-->>API: receipt + RewardIssued event
+  API->>API: verify contract, citizen, category, grams
+  API->>DB: Reward CONFIRMED, submission REWARDED
+  API-->>C: notification: reward received

@@ -1,0 +1,66 @@
+erDiagram
+  USER ||--o{ RECYCLING_SUBMISSION : submits
+  USER ||--o{ VERIFICATION : "decides (admin)"
+  USER ||--o{ REWARD : receives
+  USER ||--o{ NOTIFICATION : gets
+  RECYCLING_SUBMISSION ||--o| VERIFICATION : "has at most one"
+  RECYCLING_SUBMISSION ||--o| REWARD : "has at most one (UNIQUE)"
+  USER {
+    string id PK
+    string fullName
+    string displayName
+    string email UK
+    string passwordHash
+    string role
+    string walletAddress UK
+    string accountStatus
+    datetime createdAt
+  }
+  RECYCLING_SUBMISSION {
+    string id PK
+    string citizenId FK
+    string wasteCategory
+    float quantityKg
+    string collectionLocation
+    datetime recyclingDate
+    string evidenceImagePath
+    string status
+    string rejectionReason
+    datetime createdAt
+  }
+  VERIFICATION {
+    string id PK
+    string submissionId FK, UK
+    string adminId FK
+    string decision
+    string comments
+    datetime verifiedAt
+  }
+  REWARD {
+    string id PK
+    string citizenId FK
+    string submissionId FK, UK
+    float tokenAmount
+    string transactionHash UK
+    string transactionStatus
+    datetime createdAt
+  }
+  NOTIFICATION {
+    string id PK
+    string userId FK
+    string title
+    string message
+    boolean isRead
+    datetime createdAt
+  }
+  SETTING {
+    string key PK
+    string value
+  }
+  AUDIT_LOG {
+    string id PK
+    string actorId
+    string action
+    string entityType
+    datetime createdAt
+  }

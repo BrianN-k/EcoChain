@@ -1,0 +1,25 @@
+flowchart TB
+  subgraph Browser["Browser (React + Vite + Tailwind)"]
+    PUB[Public website]
+    CIT[Citizen dashboard]
+    ADM[Administrator dashboard]
+    ETH[Ethers.js]
+  end
+  MM[MetaMask wallet<br/>keys never leave the wallet]
+  subgraph Server["Express REST API"]
+    AUTH[Auth + role checks]
+    SUB[Submissions + uploads]
+    VER[Verification]
+    REW[Reward recording + receipt verification]
+  end
+  DB[(SQLite via Prisma)]
+  FS[/Evidence files<br/>protected/]
+  subgraph Chain["Sepolia testnet"]
+    SC[EcoChainRewards.sol<br/>ERC-20 + AccessControl]
+  end
+  PUB & CIT & ADM -- "REST + JWT" --> Server
+  ETH --> MM
+  MM -- "signed transactions" --> SC
+  Server --> DB
+  Server --> FS
+  REW -- "read-only RPC: receipts" --> SC

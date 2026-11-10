@@ -1,0 +1,23 @@
+flowchart LR
+  C((Citizen))
+  A((Administrator))
+  subgraph EcoChain
+    U1[Register / log in]
+    U2[Link MetaMask wallet]
+    U3[Submit recycling]
+    U4[Track activities and statuses]
+    U5[View ECO balance and rewards]
+    U6[View leaderboard]
+    U7[View transactions on explorer]
+    U8[Manage profile / password]
+    V1[Review submissions and evidence]
+    V2[Approve or reject]
+    V3[Authorise ECO reward on-chain]
+    V4[Manage citizens]
+    V5[View blockchain records]
+    V6[Reports and CSV export]
+    V7[Configure reward settings]
+  end
+  C --- U1 & U2 & U3 & U4 & U5 & U6 & U7 & U8
+  A --- V1 & V2 & V3 & V4 & V5 & V6 & V7
+  V3 -. includes .-> V2

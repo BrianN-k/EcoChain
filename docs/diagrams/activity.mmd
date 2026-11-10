@@ -1,0 +1,21 @@
+flowchart TD
+  S([Start]) --> R[Citizen registers / logs in]
+  R --> L[Link MetaMask wallet by signing a message]
+  L --> F[Fill recycling form + optional photo]
+  F --> V{Valid input?}
+  V -- No --> F
+  V -- Yes --> P[Submission saved as PENDING]
+  P --> AR[Administrator reviews evidence]
+  AR --> D{Approve?}
+  D -- No --> RJ[Reject with reason, citizen notified]
+  RJ --> E1([End])
+  D -- Yes --> AP[Status APPROVED]
+  AP --> W{Citizen wallet linked?}
+  W -- No --> NW[Ask citizen to link wallet] --> W
+  W -- Yes --> CK{Already rewarded on-chain?}
+  CK -- Yes --> STOP[Block: duplicate] --> E2([End])
+  CK -- No --> SG[Admin signs reward transaction in MetaMask]
+  SG --> TX{Transaction confirmed and verified?}
+  TX -- No --> FL[Reward FAILED, admin may retry] --> CK
+  TX -- Yes --> OK[Reward CONFIRMED, citizen notified]
+  OK --> E3([End])
