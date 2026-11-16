@@ -2,36 +2,16 @@
 **Recycle. Earn. Build a Greener Future.**
 Blockchain-Based Decentralized Waste Management and Recycling Rewards System, KCA University, SDG 11 (Sustainable Cities and Communities).
 
-Stack: React + Vite + Tailwind · Node + Express · SQLite + Prisma · Solidity (OpenZeppelin) on Sepolia · MetaMask + Ethers.js. **No Docker.**
-
----
-
-## IMPORTANT: verification status (read this first)
-
-This project was produced in an environment that could not download npm packages, so the following was **not** run before delivery:
-
-| Part | Status |
-|---|---|
-| Server JavaScript | Syntax-checked. Pure reward-maths tests pass (`tests/rewards.test.js`). |
-| Server API tests (`tests/api.test.js`) | **Written, not yet run.** Run `npm test` on your PC (step 3 below). |
-| Client (React) | Syntax-checked, and every import and export cross-checked. **`npm run build` has not been run.** |
-| Smart contract | Reviewed by hand. **Not compiled and its Remix tests not yet run.** |
-| Sepolia deployment, MetaMask flow | **Not done.** Needs your wallet, so it can only be done by you (see `docs/REMIX_DEPLOY.md`). |
-
-Expect a few small fixes on first run. Work through the steps in order and stop at the first error. Do not move on until each step is green.
-
----
-
+Stack: React + Vite + Tailwind · Node + Express · SQLite + Prisma · Solidity (OpenZeppelin) on Sepolia · MetaMask + Ethers.js.
+------------------------------------------------------------------------------------------------------------------
 ## 1. Install the tools (once)
 1. **Node.js LTS** (v20 or v22): https://nodejs.org. Check in PowerShell: `node -v` and `npm -v`.
 2. **VS Code**: https://code.visualstudio.com
-3. **MetaMask** browser extension. Write your seed phrase on paper. **Never type or paste it anywhere.**
+3. **MetaMask** browser extension. Write your seed phrase on paper. 
 4. Create two MetaMask accounts: **Admin** (deploys the contract and approves rewards) and **Citizen** (test recipient).
 5. Switch MetaMask to the **Sepolia** test network and get free Sepolia ETH for the Admin account from a Sepolia faucet.
 6. A free **Alchemy** or **Infura** account → create a Sepolia app → copy the HTTPS URL (used by the server only to *read* the chain).
 
-If PowerShell says "running scripts is disabled", run once:
-`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
 
 ## 2. Run the server (Terminal 1)
 ```powershell
@@ -107,5 +87,5 @@ docs/                 Deploy guide, test plan, report draft, diagrams
 - A compromised admin wallet could mint rewards (capped per submission). Use a separate wallet for admin work.
 - Supply is uncapped and Sepolia tokens have no value. Token redemption is a "Coming Soon" future feature.
 - Reward rates exist both in the database (for estimates) and on the contract (the real amount). Changing a rate in Settings also requires calling `setRate` on the contract.
-- SQLite is for development. Use PostgreSQL in production.
+- SQLite is for development. 
 - The contract is unaudited.
