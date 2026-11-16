@@ -102,7 +102,7 @@ docs/                 Deploy guide, test plan, report draft, diagrams
 - Uploads: JPG/PNG/WebP only, 5 MB, real file-signature check, random server-chosen filenames, served only to logged-in users.
 - No personal data on-chain (only a hash of the submission id).
 
-## Known limitations (state these honestly in your report)
+## Known limitations
 - The blockchain cannot prove recycling really happened. The administrator is a trusted verifier.
 - A compromised admin wallet could mint rewards (capped per submission). Use a separate wallet for admin work.
 - Supply is uncapped and Sepolia tokens have no value. Token redemption is a "Coming Soon" future feature.
